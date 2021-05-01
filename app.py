@@ -337,6 +337,8 @@ def sendSms():
     data = request.args
     body = data.get('body')
     number = data.get('number')
+    number = str(number)[1:]
+    number = '+'+str(number)
     number = '+'+number
     try:
         message = client.messages.create(
@@ -352,7 +354,7 @@ def sendSms():
 @app.route('/speakOnCall',methods=['POST'])
 def speakOnCall():
     response = VoiceResponse()
-
+    print("Inside SpeakOnCall")
     fileName = "./XML/data.txt"
     file = open(fileName)
     for i in range(1,4):
@@ -370,16 +372,19 @@ def makeCall():
     body = data.get('body')
     number = data.get('number')
     name = data.get('name')
+    number = str(number)[1:]
     number = '+'+str(number)
+    print(number)
     print("hi")
     fileName = "./XML/data.txt"
     makeFile(name,body,fileName,language)
     try:
         call = client.calls.create(
-            url='http://e6e42eb3c4ff.ngrok.io/speakOnCall',
+            url='https://e6e42eb3c4ff.ngrok.io/speakOnCall',
             to=number,
             from_='+18327355242'
         )
+        print(call)
         return jsonify({"success":True,"callId":call.sid})
     except Exception as e:
         return f"An Error Occured: {e}",400
