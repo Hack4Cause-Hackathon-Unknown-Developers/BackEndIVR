@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # credentials
-credentials.json
-serviceAccount.json
+./credentials.json
+./serviceAccount.json
