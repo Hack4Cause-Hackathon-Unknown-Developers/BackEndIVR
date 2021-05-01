@@ -1,6 +1,6 @@
 # credentials
-credentials.json
-serviceAccount.json
+credentials.json/
+serviceAccount.json/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
