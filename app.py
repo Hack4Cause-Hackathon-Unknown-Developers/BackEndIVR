@@ -300,7 +300,7 @@ def voice(language,age,gender,work,salary):
             response.hangup()
         return str(response)
     else:
-        action = 'http://135029ff9eb3.ngrok.io/answer/'+language+'/'+age+'/'+gender+'/'+work+'/'+salary
+        action = 'http://e6e42eb3c4ff.ngrok.io/answer/'+language+'/'+age+'/'+gender+'/'+work+'/'+salary
         if int(language) == 1:
             response.say(en['message15'],voice='Polly.Aditi',language="hi-IN",)
             response.record(
@@ -341,7 +341,7 @@ def sendSms():
     try:
         message = client.messages.create(
             body=body,
-            from_='+12054489824',
+            from_='+18327355242',
             to=number
         )
         print("hello")
@@ -353,7 +353,7 @@ def sendSms():
 def speakOnCall():
     response = VoiceResponse()
 
-    fileName = "/home/learner/Desktop/Headout/CodeFury-IVR/XML/data.txt"
+    fileName = "./XML/data.txt"
     file = open(fileName)
     for i in range(1,4):
         text = file.readline()
@@ -372,13 +372,13 @@ def makeCall():
     name = data.get('name')
     number = '+'+str(number)
     print("hi")
-    fileName = "/home/learner/Desktop/Headout/CodeFury-IVR/XML/data.txt"
+    fileName = "./XML/data.txt"
     makeFile(name,body,fileName,language)
     try:
         call = client.calls.create(
-            url='http://135029ff9eb3.ngrok.io/speakOnCall',
+            url='http://e6e42eb3c4ff.ngrok.io/speakOnCall',
             to=number,
-            from_='+12054489824'
+            from_='+18327355242'
         )
         return jsonify({"success":True,"callId":call.sid})
     except Exception as e:
@@ -403,8 +403,8 @@ def getAudio(url):
     fileNames = url.split("/")
     fileName = fileNames[-1]
     print(fileName)
-    urllib.request.urlretrieve(url, '/home/learner/Desktop/Headout/CodeFury-IVR/Recordings/'+fileName+'.wav')
-    file_audio = sr.AudioFile('/home/learner/Desktop/Headout/CodeFury-IVR/Recordings/'+fileName+'.wav')
+    urllib.request.urlretrieve(url, './Recordings/'+fileName+'.wav')
+    file_audio = sr.AudioFile('./Recordings/'+fileName+'.wav')
 
     with file_audio as source:
         audio_text = r.record(source)
